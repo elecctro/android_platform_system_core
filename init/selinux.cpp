@@ -89,25 +89,8 @@ namespace init {
 
 namespace {
 
-enum EnforcingStatus { SELINUX_PERMISSIVE, SELINUX_ENFORCING };
-
-EnforcingStatus StatusFromCmdline() {
-    EnforcingStatus status = SELINUX_ENFORCING;
-
-    ImportKernelCmdline([&](const std::string& key, const std::string& value) {
-        if (key == "androidboot.selinux" && value == "permissive") {
-            status = SELINUX_PERMISSIVE;
-        }
-    });
-
-    return status;
-}
-
 bool IsEnforcing() {
-    if (ALLOW_PERMISSIVE_SELINUX) {
-        return StatusFromCmdline() == SELINUX_ENFORCING;
-    }
-    return true;
+    return false;
 }
 
 // Forks, executes the provided program in the child, and waits for the completion in the parent.
